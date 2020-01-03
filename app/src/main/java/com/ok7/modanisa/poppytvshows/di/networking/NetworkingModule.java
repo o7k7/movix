@@ -1,7 +1,15 @@
 package com.ok7.modanisa.poppytvshows.di.networking;
 
-import com.ok7.modanisa.poppytvshows.BuildConfig;
+import android.content.Context;
 
+import com.ok7.modanisa.poppytvshows.BuildConfig;
+import com.ok7.modanisa.poppytvshows.service.ConnectionControlInterceptor;
+import com.ok7.modanisa.poppytvshows.service.ConnectionController;
+import com.ok7.modanisa.poppytvshows.service.ServiceConstants;
+import com.ok7.modanisa.poppytvshows.service.TvShowsApi;
+import com.ok7.modanisa.poppytvshows.service.request.TvShowsRepository;
+
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,12 +24,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkingModule {
 
+    @Provides
+    @Singleton
+    ConnectionController getConnectionController() {
+        return new ConnectionController();
+    }
+
     @Singleton
     @Provides
-    Retrofit getRetrofit() {
+    ConnectionControlInterceptor getConnectionControlInterceptor(@Named("ApplicationContext") Context context, ConnectionController connectionController) {
+        return new ConnectionControlInterceptor(context, connectionController);
+    }
 
+    @Singleton
+    @Provides
+    Retrofit getRetrofit(ConnectionControlInterceptor interceptor) {
         final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         final OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(interceptor);
         HttpLoggingInterceptor.Level logLevel;
         if (BuildConfig.DEBUG) {
             logLevel = HttpLoggingInterceptor.Level.BODY;
@@ -32,7 +52,7 @@ public class NetworkingModule {
         httpClient.addInterceptor(logging);
         return new Retrofit
                 .Builder()
-                .baseUrl("https://developers.themoviedb.org/3/tv/")
+                .baseUrl(ServiceConstants.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
@@ -42,5 +62,16 @@ public class NetworkingModule {
     @Provides
     CompositeDisposable getCompositeDisposable() {
         return new CompositeDisposable();
+    }
+
+    @Singleton
+    @Provides
+    TvShowsApi getMovieApi(Retrofit retrofit) {
+        return retrofit.create(TvShowsApi.class);
+    }
+
+    @Provides
+    TvShowsRepository getMoviesRepository(TvShowsApi movieApi, CompositeDisposable compositeDisposable) {
+        return new TvShowsRepository(compositeDisposable, movieApi);
     }
 }
