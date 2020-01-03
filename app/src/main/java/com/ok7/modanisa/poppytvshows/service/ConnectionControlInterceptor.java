@@ -27,7 +27,7 @@ public final class ConnectionControlInterceptor implements Interceptor {
         final HttpUrl originalHttpUrl = original.url();
 
         final HttpUrl url = originalHttpUrl.newBuilder()
-                .addQueryParameter("apikey", ServiceConstants.API_KEY)
+                .addQueryParameter("api_key", ServiceConstants.API_KEY)
                 .build();
         final Request.Builder requestBuilder = original.newBuilder()
                 .url(url);
