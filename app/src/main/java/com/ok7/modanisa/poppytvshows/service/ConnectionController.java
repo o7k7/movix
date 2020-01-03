@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
-public class ConnectionController {
+public final class ConnectionController {
 
     private PublishSubject<String> subject;
 

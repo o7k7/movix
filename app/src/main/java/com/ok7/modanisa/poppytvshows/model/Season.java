@@ -8,7 +8,7 @@ import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Season implements Parcelable {
+public final class Season implements Parcelable {
 
     @SerializedName("air_date")
     @Expose

@@ -30,9 +30,9 @@ public class BaseActivity extends FragmentActivity {
     protected void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) this
                 .getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null && ((Activity) this).getCurrentFocus() != null) {
+        if (inputMethodManager != null && this.getCurrentFocus() != null) {
             inputMethodManager.hideSoftInputFromWindow(
-                    ((Activity) this).getCurrentFocus().getWindowToken(), 0);
+                    this.getCurrentFocus().getWindowToken(), 0);
         }
     }
 }
