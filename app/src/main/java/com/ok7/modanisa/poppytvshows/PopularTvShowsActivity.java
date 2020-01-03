@@ -9,7 +9,7 @@ import com.ok7.modanisa.poppytvshows.databinding.ActivityPopularTvShowsBinding;
 
 import javax.inject.Inject;
 
-public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTvShowsBinding, PopularTvShowsViewModel> {
+public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTvShowsBinding, PopularTvShowsViewModel> implements BindingUtils.NextPage {
 
     @Inject
     ViewModelFactory mViewModelFactory;
@@ -24,11 +24,16 @@ public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTv
         super.onCreate(savedInstanceState);
         mBindings = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_popular_tv_shows, null, false);
         setContentView(mBindings.getRoot());
+        mBindings.setLifecycleOwner(this);
+        mBindings.setOnLoadMoreCallback(this);
+        mViewModel.getPopularTvShows(message -> {
+
+        });
     }
 
     @Override
     public int getBindingVariable() {
-        return 0;
+        return BR._all;
     }
 
     @Override
@@ -43,4 +48,11 @@ public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTv
         return mViewModel;
     }
 
+    /**
+     * Request next page
+     */
+    @Override
+    public void onLoadMore() {
+
+    }
 }

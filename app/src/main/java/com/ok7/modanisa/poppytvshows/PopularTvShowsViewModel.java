@@ -2,6 +2,7 @@ package com.ok7.modanisa.poppytvshows;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.ok7.modanisa.poppytvshows.model.PopularShowSections;
 import com.ok7.modanisa.poppytvshows.model.Result;
 import com.ok7.modanisa.poppytvshows.service.request.TvShowsRepository;
 
@@ -17,7 +18,7 @@ public final class PopularTvShowsViewModel extends BaseViewModel {
 
     private CompositeDisposable mCompositeDisposable;
 
-    public MutableLiveData<List<Result>> mPopularTvShows;
+    public MutableLiveData<List<PopularShowSections>> mPopularTvShows;
 
     public PopularTvShowsViewModel(TvShowsRepository tvShowsRepository,
                                    CompositeDisposable compositeDisposable,
@@ -29,7 +30,14 @@ public final class PopularTvShowsViewModel extends BaseViewModel {
 
     void getPopularTvShows(MessageCallback messageCallback) {
         mTvShowsRepository.getPopularTvShows(1,
-                tvShows -> mPopularTvShows.setValue(tvShows.getResults()),
+                tvShows -> mPopularTvShows.setValue(tvShows),
+                messageCallback::onMessageReceived
+        );
+    }
+
+    void getPopularTvShows(MessageCallback messageCallback, int page) {
+        mTvShowsRepository.getPopularTvShows(page,
+                tvShows -> mPopularTvShows.setValue(tvShows),
                 messageCallback::onMessageReceived
         );
     }

@@ -13,6 +13,10 @@
         <variable
             name="groupModels"
             type="List&lt;com.ok7.modanisa.poppytvshows.model.Result>" />
+
+        <variable
+            name="onLoadMoreCallback"
+            type="com.ok7.modanisa.poppytvshows.BindingUtils.NextPage" />
     </data>
 
     <RelativeLayout
@@ -23,6 +27,8 @@
             android:id="@+id/rv_popular_tv_shows"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:data="@{groupModels}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:nextPage="@{onLoadMoreCallback}" />
     </RelativeLayout>
 </layout>

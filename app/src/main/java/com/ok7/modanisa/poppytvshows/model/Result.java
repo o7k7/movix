@@ -50,6 +50,7 @@ public final class Result implements Parcelable {
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+
     public final static Parcelable.Creator<Result> CREATOR = new Creator<Result>() {
 
 

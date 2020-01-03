@@ -2,9 +2,12 @@ package com.ok7.modanisa.poppytvshows.service.request;
 
 import androidx.annotation.NonNull;
 
+import com.ok7.modanisa.poppytvshows.model.PopularShowSections;
 import com.ok7.modanisa.poppytvshows.model.TvShowDetail;
-import com.ok7.modanisa.poppytvshows.model.TvShows;
 import com.ok7.modanisa.poppytvshows.service.TvShowsApi;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -12,10 +15,14 @@ import io.reactivex.schedulers.Schedulers;
 
 public final class TvShowsRepository extends BaseRepository {
 
+    private final static short MAX_ELEMENTS_IN_PAGE = 20;
+
+    private final static short HALF_OF_MAX_ELEMENTS_IN_PAGE = MAX_ELEMENTS_IN_PAGE / 2;
+
     //<editor-fold desc="Callbacks">
     @FunctionalInterface
     public interface OnSuccessPopularShows {
-        void accept(TvShows tvShows);
+        void accept(List<PopularShowSections> tvShows);
     }
 
     @FunctionalInterface
@@ -53,7 +60,23 @@ public final class TvShowsRepository extends BaseRepository {
                 mTvShowsApi.getPopularTvShows(String.valueOf(page))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(onSuccessPopularShows::accept, throwable -> onFailurePopularShows.accept(handleErrorr(throwable).getStatusMessage()))
+                        .subscribe(tvShows -> {
+                            if (page == 1 && tvShows.getResults().size() == MAX_ELEMENTS_IN_PAGE) {
+                                final List<PopularShowSections> popularShowSections = new ArrayList<>();
+                                popularShowSections.add(new PopularShowSections(tvShows.getResults().subList(0, HALF_OF_MAX_ELEMENTS_IN_PAGE), "pager"));
+                                popularShowSections.add(new PopularShowSections(tvShows.getResults().subList(HALF_OF_MAX_ELEMENTS_IN_PAGE, tvShows.getResults().size()), "grid"));
+                                onSuccessPopularShows.accept(popularShowSections);
+                            } else if (page == 2 && tvShows.getResults().size() == MAX_ELEMENTS_IN_PAGE) {
+                                final List<PopularShowSections> popularShowSections = new ArrayList<>();
+                                popularShowSections.add(new PopularShowSections(tvShows.getResults().subList(0, HALF_OF_MAX_ELEMENTS_IN_PAGE), "horizontal"));
+                                popularShowSections.add(new PopularShowSections(tvShows.getResults().subList(HALF_OF_MAX_ELEMENTS_IN_PAGE, tvShows.getResults().size()), "grid"));
+                                onSuccessPopularShows.accept(popularShowSections);
+                            } else {
+                                final List<PopularShowSections> popularShowSections = new ArrayList<>();
+                                popularShowSections.add(new PopularShowSections(tvShows.getResults(), "grid"));
+                                onSuccessPopularShows.accept(popularShowSections);
+                            }
+                        }, throwable -> onFailurePopularShows.accept(handleErrorr(throwable).getStatusMessage()))
         );
     }
 
