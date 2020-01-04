@@ -21,8 +21,14 @@ public interface TvShowDao {
     @Query("SELECT * from popular_shows ORDER BY createDate ASC LIMIT :limit OFFSET :offset")
     Single<List<Result>> getPopularTvShows(int limit, int offset);
 
+    @Query("SELECT * from popular_shows WHERE id = :id")
+    Single<List<Result>> getSelectedTvShow(Integer id);
+
     @Query("DELETE FROM popular_shows")
     void clearTable();
+
+    @Query("UPDATE popular_shows SET favourite = :isFavourite WHERE id = :id ")
+    void updateSelectedCustomer(int id, boolean isFavourite);
 
     @Update
     void updateCustomerSearchHistory(Result result);

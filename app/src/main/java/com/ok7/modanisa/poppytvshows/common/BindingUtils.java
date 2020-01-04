@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.like.LikeButton;
 import com.ok7.modanisa.poppytvshows.BuildConfig;
 import com.squareup.picasso.Picasso;
 
@@ -83,6 +84,16 @@ public abstract class BindingUtils {
     public static void setPagerData(final ImageView imageView,
                                     String url) {
         Picasso.with(imageView.getContext()).load("https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + url).into(imageView);
+    }
+
+    @BindingAdapter(value = {"setLiked"}, requireAll = false)
+    public static void setPagerData(final LikeButton likeButton,
+                                    Boolean isLiked) {
+        if (isLiked == null) {
+            likeButton.setLiked(false);
+        } else {
+            likeButton.setLiked(isLiked);
+        }
     }
 
     private static boolean isLoading;

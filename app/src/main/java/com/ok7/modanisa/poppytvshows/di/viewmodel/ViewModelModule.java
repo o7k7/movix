@@ -3,8 +3,10 @@ package com.ok7.modanisa.poppytvshows.di.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ok7.modanisa.poppytvshows.common.database.DatabaseOperationUseCases;
 import com.ok7.modanisa.poppytvshows.screens.PopularTvShowsViewModel;
 import com.ok7.modanisa.poppytvshows.ViewModelFactory;
+import com.ok7.modanisa.poppytvshows.screens.tvshowdetail.TvShowDetailViewModel;
 import com.ok7.modanisa.poppytvshows.service.request.TvShowsRepository;
 
 import java.lang.annotation.ElementType;
@@ -49,5 +51,12 @@ public class ViewModelModule {
     @ViewModelKey(PopularTvShowsViewModel.class)
     ViewModel getPopularTvShowsViewModule(TvShowsRepository tvShowsRepository, CompositeDisposable compositeDisposable, Provider<MutableLiveData> mutableLiveDataProvider) {
         return new PopularTvShowsViewModel(tvShowsRepository, compositeDisposable, mutableLiveDataProvider);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(TvShowDetailViewModel.class)
+    ViewModel getDetails(DatabaseOperationUseCases databaseOperationUseCases, TvShowsRepository tvShowsRepository, CompositeDisposable compositeDisposable) {
+        return new TvShowDetailViewModel(databaseOperationUseCases, tvShowsRepository, compositeDisposable);
     }
 }

@@ -25,6 +25,11 @@ public final class PopularTvShowsDataSourceImpl implements PopularTvShowsDataSou
     }
 
     @Override
+    public Single<List<Result>> getSelectedTvShow(Integer id) {
+        return mTvShowDao.getSelectedTvShow(id);
+    }
+
+    @Override
     public void clearTable() {
         mTvShowDao.clearTable();
     }

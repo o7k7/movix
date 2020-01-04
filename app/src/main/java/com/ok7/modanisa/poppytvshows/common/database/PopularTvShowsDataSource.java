@@ -11,6 +11,8 @@ public interface PopularTvShowsDataSource {
 
     Single<List<Result>> getPopularTvShows(int limit, int offset);
 
+    Single<List<Result>> getSelectedTvShow(Integer id);
+
     void clearTable();
 
     void updateCustomerSearchHistory(Result result);

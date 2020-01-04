@@ -68,40 +68,93 @@ public final class Result implements Parcelable {
     @TypeConverters(DataTypeConverter.class)
     public Date createDate;
 
-    public final static Parcelable.Creator<Result> CREATOR = new Creator<Result>() {
+    @ColumnInfo(name = "favourite")
+    public Boolean isFavourite;
 
+    public Result() {
+    }
 
-        @SuppressWarnings({
-                "unchecked"
-        })
+    protected Result(Parcel in) {
+        originalName = in.readString();
+        name = in.readString();
+        if (in.readByte() == 0) {
+            popularity = null;
+        } else {
+            popularity = in.readDouble();
+        }
+        originCountry = in.createStringArrayList();
+        if (in.readByte() == 0) {
+            voteCount = null;
+        } else {
+            voteCount = in.readInt();
+        }
+        firstAirDate = in.readString();
+        backdropPath = in.readString();
+        originalLanguage = in.readString();
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            voteAverage = null;
+        } else {
+            voteAverage = in.readDouble();
+        }
+        overview = in.readString();
+        posterPath = in.readString();
+        byte tmpIsFavourite = in.readByte();
+        isFavourite = tmpIsFavourite == 0 ? null : tmpIsFavourite == 1;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(originalName);
+        dest.writeString(name);
+        if (popularity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(popularity);
+        }
+        dest.writeStringList(originCountry);
+        if (voteCount == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(voteCount);
+        }
+        dest.writeString(firstAirDate);
+        dest.writeString(backdropPath);
+        dest.writeString(originalLanguage);
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        if (voteAverage == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(voteAverage);
+        }
+        dest.writeString(overview);
+        dest.writeString(posterPath);
+        dest.writeByte((byte) (isFavourite == null ? 0 : isFavourite ? 1 : 2));
+    }
+
+    public static final Creator<Result> CREATOR = new Creator<Result>() {
+        @Override
         public Result createFromParcel(Parcel in) {
             return new Result(in);
         }
 
+        @Override
         public Result[] newArray(int size) {
-            return (new Result[size]);
+            return new Result[size];
         }
-
     };
-
-    protected Result(Parcel in) {
-        this.originalName = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.genreIds, (java.lang.Integer.class.getClassLoader()));
-        this.name = ((String) in.readValue((String.class.getClassLoader())));
-        this.popularity = ((Double) in.readValue((Double.class.getClassLoader())));
-        in.readList(this.originCountry, (java.lang.String.class.getClassLoader()));
-        this.voteCount = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.firstAirDate = ((String) in.readValue((String.class.getClassLoader())));
-        this.backdropPath = ((String) in.readValue((String.class.getClassLoader())));
-        this.originalLanguage = ((String) in.readValue((String.class.getClassLoader())));
-        this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.voteAverage = ((Double) in.readValue((Double.class.getClassLoader())));
-        this.overview = ((String) in.readValue((String.class.getClassLoader())));
-        this.posterPath = ((String) in.readValue((String.class.getClassLoader())));
-    }
-
-    public Result() {
-    }
 
     public String getOriginalName() {
         return originalName;
@@ -207,22 +260,6 @@ public final class Result implements Parcelable {
         this.posterPath = posterPath;
     }
 
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(originalName);
-        dest.writeList(genreIds);
-        dest.writeValue(name);
-        dest.writeValue(popularity);
-        dest.writeList(originCountry);
-        dest.writeValue(voteCount);
-        dest.writeValue(firstAirDate);
-        dest.writeValue(backdropPath);
-        dest.writeValue(originalLanguage);
-        dest.writeValue(id);
-        dest.writeValue(voteAverage);
-        dest.writeValue(overview);
-        dest.writeValue(posterPath);
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -235,4 +272,11 @@ public final class Result implements Parcelable {
         return 0;
     }
 
+    public Boolean getFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(Boolean favourite) {
+        isFavourite = favourite;
+    }
 }

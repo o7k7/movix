@@ -1,5 +1,6 @@
 package com.ok7.modanisa.poppytvshows.common.database;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ok7.modanisa.poppytvshows.model.Result;
@@ -47,6 +48,17 @@ public final class DatabaseOperationUseCases {
         );
     }
 
+    public void getPopularTvShows(Integer id, Select select) {
+        mCompositeDisposable.add(
+                mPopularTvShowsDataSource.getSelectedTvShow(id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(select::onComplete, throwable -> {
+                            select.onComplete(null);
+                        })
+        );
+    }
+
     public void addPopularTvShows(List<Result> results, Insert insert) {
         final Calendar calendar = Calendar.getInstance();
         for (Result result : results) {
@@ -70,6 +82,29 @@ public final class DatabaseOperationUseCases {
             }
         };
         Completable.fromAction(() -> mPopularTvShowsDataSource.insertToPopularTvShows(results))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(completableObserver);
+    }
+
+    public void updateSelectedCustomer(@NonNull Result tvShow) {
+        final CompletableObserver completableObserver = new CompletableObserver() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mCompositeDisposable.add(d);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        };
+        Completable.fromAction(() -> mPopularTvShowsDataSource.updateCustomerSearchHistory(tvShow))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(completableObserver);

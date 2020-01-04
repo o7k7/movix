@@ -5,15 +5,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import com.like.LikeButton;
+import com.ok7.modanisa.poppytvshows.R;
 import com.ok7.modanisa.poppytvshows.common.BindingUtils;
 import com.ok7.modanisa.poppytvshows.databinding.PopularTvShowPagerItemBinding;
 import com.ok7.modanisa.poppytvshows.model.Result;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
-public class TvShowsPagerAdapter extends PagerAdapter implements BindingUtils.BindablePagerAdapter<Result> {
+public final class TvShowsPagerAdapter extends PagerAdapter implements BindingUtils.BindablePagerAdapter<Result> {
 
     private List<Result> listOfData;
 
@@ -59,5 +64,33 @@ public class TvShowsPagerAdapter extends PagerAdapter implements BindingUtils.Bi
             this.listOfData = listOfData;
             notifyDataSetChanged();
         }
+    }
+
+    @Nullable
+    public LikeButton getLikeButtonForCurrentView(ViewPager pagerTvShows) {
+        LikeButton likeButton = null;
+        final int childCount = pagerTvShows.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View child = pagerTvShows.getChildAt(i);
+            final ViewPager.LayoutParams lp = (ViewPager.LayoutParams) child.getLayoutParams();
+            int position = 0;
+            try {
+                Field f = lp.getClass().getDeclaredField("position");
+                f.setAccessible(true);
+                position = f.getInt(lp); //IllegalAccessException
+            } catch (IllegalAccessException ex) {
+                ex.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            if (position == pagerTvShows.getCurrentItem()) {
+                likeButton = child.findViewById(R.id.star_button);
+            }
+        }
+        return likeButton;
+    }
+
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }

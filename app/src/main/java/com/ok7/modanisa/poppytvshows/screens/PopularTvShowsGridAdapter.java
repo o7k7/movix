@@ -17,10 +17,13 @@ public final class PopularTvShowsGridAdapter extends RecyclerView.Adapter<Popula
 
     private List<Result> listOfData;
 
-    private PopularTvShowsAdapter.ClickListener clickListener;
+    private PopularTvShowsAdapter.DetailedClickListener clickListener;
 
-    public PopularTvShowsGridAdapter(PopularTvShowsAdapter.ClickListener clickListener) {
+    private String adapterType;
+
+    public PopularTvShowsGridAdapter(String adapterType, PopularTvShowsAdapter.DetailedClickListener clickListener) {
         this.clickListener = clickListener;
+        this.adapterType = adapterType;
     }
 
     @NonNull
@@ -28,7 +31,7 @@ public final class PopularTvShowsGridAdapter extends RecyclerView.Adapter<Popula
     public PopularTvShowsGridAdapter.GridItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         PopularTvShowGridItemBinding itemBinding = PopularTvShowGridItemBinding.inflate(LayoutInflater.from(parent.getContext()),
                 parent, false);
-        itemBinding.setListener(result -> clickListener.onClick(result));
+        itemBinding.setListener(result -> clickListener.onClick(result, this.listOfData.indexOf(result), adapterType, this, null));
         return new GridItemHolder(itemBinding);
     }
 
