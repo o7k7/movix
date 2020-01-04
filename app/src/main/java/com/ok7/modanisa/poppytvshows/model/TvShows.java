@@ -1,16 +1,13 @@
 
 package com.ok7.modanisa.poppytvshows.model;
 
-import java.util.List;
-
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-
-import androidx.room.Entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public final class TvShows implements Parcelable {
 

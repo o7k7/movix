@@ -4,7 +4,6 @@ import com.ok7.modanisa.poppytvshows.di.database.DatabaseModule;
 import com.ok7.modanisa.poppytvshows.di.networking.NetworkingModule;
 import com.ok7.modanisa.poppytvshows.di.presentation.PresentationComponent;
 import com.ok7.modanisa.poppytvshows.di.presentation.PresentationModule;
-import com.ok7.modanisa.poppytvshows.di.viewmodel.ViewModelModule;
 
 import javax.inject.Singleton;
 

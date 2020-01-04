@@ -8,7 +8,6 @@ import com.ok7.modanisa.poppytvshows.model.PopularShowSections;
 import com.ok7.modanisa.poppytvshows.model.PopularTvShowsViewTypes;
 import com.ok7.modanisa.poppytvshows.model.Result;
 import com.ok7.modanisa.poppytvshows.model.TvShowDetail;
-import com.ok7.modanisa.poppytvshows.model.TvShows;
 import com.ok7.modanisa.poppytvshows.service.TvShowsApi;
 
 import java.util.ArrayList;

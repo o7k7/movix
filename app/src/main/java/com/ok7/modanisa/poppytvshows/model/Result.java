@@ -1,9 +1,6 @@
 
 package com.ok7.modanisa.poppytvshows.model;
 
-import java.util.Date;
-import java.util.List;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -16,6 +13,9 @@ import androidx.room.TypeConverters;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ok7.modanisa.poppytvshows.common.database.DataTypeConverter;
+
+import java.util.Date;
+import java.util.List;
 
 @Entity(tableName = "popular_shows")
 public final class Result implements Parcelable {

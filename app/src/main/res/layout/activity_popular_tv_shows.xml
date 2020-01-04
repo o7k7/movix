@@ -17,6 +17,10 @@
         <variable
             name="onLoadMoreCallback"
             type="com.ok7.modanisa.poppytvshows.common.BindingUtils.NextPage" />
+
+        <variable
+            name="presenter"
+            type="com.ok7.modanisa.poppytvshows.screens.PopularTvShowsActivity" />
     </data>
 
     <RelativeLayout
@@ -29,5 +33,16 @@
             android:layout_height="match_parent"
             app:data="@{vmPopularTvShows.mPopularTvShows}"
             app:nextPage="@{onLoadMoreCallback}" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_refresh"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:onClick="@{() -> presenter.onClickRefresh()}"
+            android:text="New Shows are available"
+            android:visibility="@{vmPopularTvShows.isDataChanged ? View.VISIBLE : View.GONE}" />
     </RelativeLayout>
 </layout>

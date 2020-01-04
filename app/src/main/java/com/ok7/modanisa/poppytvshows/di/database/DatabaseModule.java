@@ -8,7 +8,6 @@ import com.ok7.modanisa.poppytvshows.common.database.DatabaseOperationUseCases;
 import com.ok7.modanisa.poppytvshows.common.database.PopularTvShowsDataSourceImpl;
 import com.ok7.modanisa.poppytvshows.common.database.TvShowDao;
 import com.ok7.modanisa.poppytvshows.common.database.TvShowDatabase;
-import com.ok7.modanisa.poppytvshows.model.Result;
 
 import javax.inject.Singleton;
 

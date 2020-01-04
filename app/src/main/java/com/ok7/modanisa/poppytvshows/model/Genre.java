@@ -3,7 +3,6 @@ package com.ok7.modanisa.poppytvshows.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
 import androidx.annotation.Nullable;
 

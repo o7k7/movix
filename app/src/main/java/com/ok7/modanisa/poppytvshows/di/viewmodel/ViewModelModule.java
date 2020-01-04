@@ -3,9 +3,9 @@ package com.ok7.modanisa.poppytvshows.di.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ok7.modanisa.poppytvshows.ViewModelFactory;
 import com.ok7.modanisa.poppytvshows.common.database.DatabaseOperationUseCases;
 import com.ok7.modanisa.poppytvshows.screens.PopularTvShowsViewModel;
-import com.ok7.modanisa.poppytvshows.ViewModelFactory;
 import com.ok7.modanisa.poppytvshows.screens.tvshowdetail.TvShowDetailViewModel;
 import com.ok7.modanisa.poppytvshows.service.request.TvShowsRepository;
 

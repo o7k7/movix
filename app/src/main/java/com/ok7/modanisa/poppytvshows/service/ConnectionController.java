@@ -2,7 +2,6 @@ package com.ok7.modanisa.poppytvshows.service;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 
