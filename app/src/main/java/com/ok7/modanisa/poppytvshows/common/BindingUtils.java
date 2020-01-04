@@ -129,10 +129,6 @@ public abstract class BindingUtils {
                         isLoading = true;
                     }
                 }
-
-                new Handler().postDelayed(() -> {
-                    isLoading = false;
-                }, 1000);
             }
         });
     }

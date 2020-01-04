@@ -1,14 +1,23 @@
 
 package com.ok7.modanisa.poppytvshows.model;
 
+import java.util.Date;
 import java.util.List;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.ok7.modanisa.poppytvshows.common.database.DataTypeConverter;
 
+@Entity(tableName = "popular_shows")
 public final class Result implements Parcelable {
 
     @SerializedName("original_name")
@@ -16,6 +25,7 @@ public final class Result implements Parcelable {
     private String originalName;
     @SerializedName("genre_ids")
     @Expose
+    @TypeConverters(DataTypeConverter.class)
     private List<Integer> genreIds = null;
     @SerializedName("name")
     @Expose
@@ -25,6 +35,7 @@ public final class Result implements Parcelable {
     private Double popularity;
     @SerializedName("origin_country")
     @Expose
+    @TypeConverters(DataTypeConverter.class)
     private List<String> originCountry = null;
     @SerializedName("vote_count")
     @Expose
@@ -39,6 +50,8 @@ public final class Result implements Parcelable {
     @Expose
     private String originalLanguage;
     @SerializedName("id")
+    @NonNull
+    @PrimaryKey
     @Expose
     private Integer id;
     @SerializedName("vote_average")
@@ -50,6 +63,10 @@ public final class Result implements Parcelable {
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+
+    @ColumnInfo(name = "createDate")
+    @TypeConverters(DataTypeConverter.class)
+    public Date createDate;
 
     public final static Parcelable.Creator<Result> CREATOR = new Creator<Result>() {
 
@@ -204,6 +221,14 @@ public final class Result implements Parcelable {
         dest.writeValue(voteAverage);
         dest.writeValue(overview);
         dest.writeValue(posterPath);
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public int describeContents() {

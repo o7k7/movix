@@ -3,6 +3,7 @@ package com.ok7.modanisa.poppytvshows.di.networking;
 import android.content.Context;
 
 import com.ok7.modanisa.poppytvshows.BuildConfig;
+import com.ok7.modanisa.poppytvshows.common.database.DatabaseOperationUseCases;
 import com.ok7.modanisa.poppytvshows.service.ConnectionControlInterceptor;
 import com.ok7.modanisa.poppytvshows.service.ConnectionController;
 import com.ok7.modanisa.poppytvshows.service.ServiceConstants;
@@ -71,7 +72,9 @@ public class NetworkingModule {
     }
 
     @Provides
-    TvShowsRepository getMoviesRepository(TvShowsApi movieApi, CompositeDisposable compositeDisposable) {
-        return new TvShowsRepository(compositeDisposable, movieApi);
+    TvShowsRepository getMoviesRepository(TvShowsApi movieApi,
+                                          CompositeDisposable compositeDisposable,
+                                          DatabaseOperationUseCases databaseOperationUseCases) {
+        return new TvShowsRepository(compositeDisposable, movieApi, databaseOperationUseCases);
     }
 }
