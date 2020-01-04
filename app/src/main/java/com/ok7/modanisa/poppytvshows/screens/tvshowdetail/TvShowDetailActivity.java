@@ -63,8 +63,10 @@ public final class TvShowDetailActivity extends BaseActivity<ActivityTvShowDetai
             final Result tvShow = results.get(0);
             this.tvShow = tvShow;
             if (tvShow.isFavourite == null) {
+                isLiked = false;
                 likeButton.setLiked(false);
             } else {
+                isLiked = tvShow.isFavourite;
                 likeButton.setLiked(tvShow.isFavourite);
             }
         });
