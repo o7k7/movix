@@ -1,7 +1,7 @@
 package com.ok7.modanisa.poppytvshows.di.presentation;
 
 
-import com.ok7.modanisa.poppytvshows.PopularTvShowsActivity;
+import com.ok7.modanisa.poppytvshows.screens.PopularTvShowsActivity;
 import com.ok7.modanisa.poppytvshows.di.viewmodel.ViewModelModule;
 
 import dagger.Subcomponent;

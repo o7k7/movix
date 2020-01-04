@@ -1,4 +1,4 @@
-package com.ok7.modanisa.poppytvshows;
+package com.ok7.modanisa.poppytvshows.screens.common;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.ViewModel;
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 public class BaseViewModel extends ViewModel {
 
     @FunctionalInterface
-    interface MessageCallback {
+    public interface MessageCallback {
         void onMessageReceived(String message);
     }
 

@@ -1,11 +1,18 @@
-package com.ok7.modanisa.poppytvshows;
+package com.ok7.modanisa.poppytvshows.screens;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.ok7.modanisa.poppytvshows.BR;
+import com.ok7.modanisa.poppytvshows.common.BindingUtils;
+import com.ok7.modanisa.poppytvshows.R;
+import com.ok7.modanisa.poppytvshows.ViewModelFactory;
 import com.ok7.modanisa.poppytvshows.databinding.ActivityPopularTvShowsBinding;
+import com.ok7.modanisa.poppytvshows.screens.common.BaseActivity;
 
 import javax.inject.Inject;
 
@@ -14,26 +21,34 @@ public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTv
     @Inject
     ViewModelFactory mViewModelFactory;
 
+    private static int page = 1;
+
     private PopularTvShowsViewModel mViewModel;
 
     private ActivityPopularTvShowsBinding mBindings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PopularTvShowsAdapter popularTvShowsAdapter = new PopularTvShowsAdapter();
         getPresentationComponent().inject(this);
         super.onCreate(savedInstanceState);
         mBindings = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_popular_tv_shows, null, false);
+        mBindings.setOnLoadMoreCallback(this);
+        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
+        mBindings.rvPopularTvShows.setLayoutManager(gridLayoutManager);
+        mBindings.rvPopularTvShows.setAdapter(popularTvShowsAdapter);
         setContentView(mBindings.getRoot());
         mBindings.setLifecycleOwner(this);
-        mBindings.setOnLoadMoreCallback(this);
+        mBindings.setVariable(BR.vmPopularTvShows, mViewModel);
         mViewModel.getPopularTvShows(message -> {
 
         });
+
     }
 
     @Override
     public int getBindingVariable() {
-        return BR._all;
+        return BR.vmPopularTvShows;
     }
 
     @Override
@@ -48,11 +63,12 @@ public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTv
         return mViewModel;
     }
 
-    /**
-     * Request next page
-     */
     @Override
     public void onLoadMore() {
+        page++;
+        Log.e("TEST:", String.valueOf(page) + " PAGE");
+        mViewModel.getPopularTvShows(message -> {
 
+        }, page);
     }
 }

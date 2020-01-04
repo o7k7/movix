@@ -6,9 +6,9 @@ public final class PopularShowSections {
 
     private List<Result> tvShows;
 
-    private String type;
+    private PopularTvShowsViewTypes type;
 
-    public PopularShowSections(List<Result> tvShows, String type) {
+    public PopularShowSections(List<Result> tvShows, PopularTvShowsViewTypes type) {
         this.tvShows = tvShows;
         this.type = type;
     }
@@ -21,11 +21,11 @@ public final class PopularShowSections {
         this.tvShows = tvShows;
     }
 
-    public String getType() {
+    public PopularTvShowsViewTypes getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PopularTvShowsViewTypes type) {
         this.type = type;
     }
 }

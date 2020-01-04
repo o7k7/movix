@@ -1,5 +1,5 @@
-package com.ok7.modanisa.poppytvshows;
-
+package com.ok7.modanisa.poppytvshows.common;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,5 +69,18 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         }
     }
 
+    @Override
+    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        super.onScrollStateChanged(recyclerView, newState);
+    }
+
     public abstract void onLoadMore(int page, int totalItemsCount);
+
+    public void resetValues() {
+        visibleThreshold = 5;
+        currentPage = 0;
+        previousTotalItemCount = 0;
+        loading = true;
+        startingPageIndex = 0;
+    }
 }

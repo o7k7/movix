@@ -1,6 +1,5 @@
-package com.ok7.modanisa.poppytvshows;
+package com.ok7.modanisa.poppytvshows.screens.common;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
 
+import com.ok7.modanisa.poppytvshows.PoppyApp;
 import com.ok7.modanisa.poppytvshows.di.application.ApplicationComponent;
 import com.ok7.modanisa.poppytvshows.di.presentation.PresentationComponent;
 import com.ok7.modanisa.poppytvshows.di.presentation.PresentationModule;

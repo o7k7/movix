@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".PopularTvShowsActivity">
+    tools:context=".screens.PopularTvShowsActivity">
 
     <data>
 
@@ -11,12 +11,12 @@
         <import type="android.view.View" />
 
         <variable
-            name="groupModels"
-            type="List&lt;com.ok7.modanisa.poppytvshows.model.Result>" />
+            name="vmPopularTvShows"
+            type="com.ok7.modanisa.poppytvshows.screens.PopularTvShowsViewModel" />
 
         <variable
             name="onLoadMoreCallback"
-            type="com.ok7.modanisa.poppytvshows.BindingUtils.NextPage" />
+            type="com.ok7.modanisa.poppytvshows.common.BindingUtils.NextPage" />
     </data>
 
     <RelativeLayout
@@ -27,8 +27,7 @@
             android:id="@+id/rv_popular_tv_shows"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:data="@{groupModels}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:data="@{vmPopularTvShows.mPopularTvShows}"
             app:nextPage="@{onLoadMoreCallback}" />
     </RelativeLayout>
 </layout>
