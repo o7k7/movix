@@ -1,7 +1,7 @@
 # movix
 Represents Popular TV Shows 
 
-![](https://media.giphy.com/media/ZBhputFKV5Pe81EIlK/giphy.gif)
+![](movix.gif)
 
 # Table of Contents
 
