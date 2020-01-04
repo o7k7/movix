@@ -76,5 +76,10 @@ dependencies {
 
 }
 ```
-
 ---
+
+  # Basic Usage
+
+#### General Purpose
+
+The general purpose of the project is the demonstraion of basic Android and Java skills. By using app you can check your favourite TV show in order to be informed about them. App consists of two pages that you can have both general and detail info about your favourite TV show.
