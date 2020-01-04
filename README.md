@@ -1,3 +1,3 @@
 # movix
 Represents Popular TV Shows 
-![Icon animations](https://gifyu.com/image/mcWR "Application Overview")
+[![movix.gif](https://s5.gifyu.com/images/movix.gif)](https://gifyu.com/image/mcWR)
