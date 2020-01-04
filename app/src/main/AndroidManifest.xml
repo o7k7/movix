@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".screens.tvshowdetail.TvShowDetailActivity"
+            android:label="@string/title_activity_tv_show_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".screens.PopularTvShowsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -127,6 +127,9 @@ public abstract class BindingUtils {
                     if (nextPage != null) {
                         nextPage.onLoadMore();
                         isLoading = true;
+                        new Handler().postDelayed(() -> {
+                            isLoading = false;
+                        }, 1000);
                     }
                 }
             }

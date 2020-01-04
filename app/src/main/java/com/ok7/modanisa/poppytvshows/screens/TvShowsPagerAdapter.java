@@ -17,11 +17,18 @@ public class TvShowsPagerAdapter extends PagerAdapter implements BindingUtils.Bi
 
     private List<Result> listOfData;
 
+    private PopularTvShowsAdapter.ClickListener clickListener;
+
+    public TvShowsPagerAdapter(PopularTvShowsAdapter.ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
     @Override
     public Object instantiateItem(ViewGroup parent, int position) {
         final Result result = listOfData.get(position);
         PopularTvShowPagerItemBinding itemBinding = PopularTvShowPagerItemBinding.inflate(LayoutInflater.from(parent.getContext()),
                 parent, false);
+        itemBinding.setListener(clickListener);
         itemBinding.setItem(result);
         parent.addView(itemBinding.getRoot());
         itemBinding.getRoot().setOnLongClickListener(v -> {

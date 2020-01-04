@@ -12,11 +12,12 @@ import com.ok7.modanisa.poppytvshows.common.BindingUtils;
 import com.ok7.modanisa.poppytvshows.R;
 import com.ok7.modanisa.poppytvshows.ViewModelFactory;
 import com.ok7.modanisa.poppytvshows.databinding.ActivityPopularTvShowsBinding;
+import com.ok7.modanisa.poppytvshows.model.Result;
 import com.ok7.modanisa.poppytvshows.screens.common.BaseActivity;
 
 import javax.inject.Inject;
 
-public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTvShowsBinding, PopularTvShowsViewModel> implements BindingUtils.NextPage {
+public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTvShowsBinding, PopularTvShowsViewModel> implements BindingUtils.NextPage, PopularTvShowsAdapter.ClickListener {
 
     @Inject
     ViewModelFactory mViewModelFactory;
@@ -29,7 +30,7 @@ public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTv
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        PopularTvShowsAdapter popularTvShowsAdapter = new PopularTvShowsAdapter();
+        PopularTvShowsAdapter popularTvShowsAdapter = new PopularTvShowsAdapter(this);
         getPresentationComponent().inject(this);
         super.onCreate(savedInstanceState);
         mBindings = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_popular_tv_shows, null, false);
@@ -43,7 +44,6 @@ public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTv
         mViewModel.getPopularTvShows(message -> {
 
         });
-
     }
 
     @Override
@@ -66,9 +66,14 @@ public final class PopularTvShowsActivity extends BaseActivity<ActivityPopularTv
     @Override
     public void onLoadMore() {
         page++;
-        Log.e("TEST:", String.valueOf(page) + " PAGE");
+        Log.e("TEST:", page + " PAGE");
         mViewModel.getPopularTvShows(message -> {
 
         }, page);
+    }
+
+    @Override
+    public void onClick(Result clickedTvShow) {
+        Log.e("TEST::", clickedTvShow.getName());
     }
 }

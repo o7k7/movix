@@ -17,11 +17,18 @@ public final class PopularTvShowsGridAdapter extends RecyclerView.Adapter<Popula
 
     private List<Result> listOfData;
 
+    private PopularTvShowsAdapter.ClickListener clickListener;
+
+    public PopularTvShowsGridAdapter(PopularTvShowsAdapter.ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
     @NonNull
     @Override
     public PopularTvShowsGridAdapter.GridItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         PopularTvShowGridItemBinding itemBinding = PopularTvShowGridItemBinding.inflate(LayoutInflater.from(parent.getContext()),
                 parent, false);
+        itemBinding.setListener(result -> clickListener.onClick(result));
         return new GridItemHolder(itemBinding);
     }
 
