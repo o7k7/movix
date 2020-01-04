@@ -3,6 +3,7 @@ package com.ok7.modanisa.poppytvshows.screens;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.viewpager.widget.PagerAdapter;
 
@@ -23,6 +24,10 @@ public class TvShowsPagerAdapter extends PagerAdapter implements BindingUtils.Bi
                 parent, false);
         itemBinding.setItem(result);
         parent.addView(itemBinding.getRoot());
+        itemBinding.getRoot().setOnLongClickListener(v -> {
+            Toast.makeText(parent.getContext(), result.getName(), Toast.LENGTH_LONG).show();
+            return false;
+        });
         return itemBinding.getRoot();
     }
 

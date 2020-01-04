@@ -124,8 +124,10 @@ public abstract class BindingUtils {
                 }
 
                 if (!isLoading && (lastVisibleItem + visibleTotalCount) >= totalItemCount) {
-                    nextPage.onLoadMore();
-                    isLoading = true;
+                    if (nextPage != null) {
+                        nextPage.onLoadMore();
+                        isLoading = true;
+                    }
                 }
 
                 new Handler().postDelayed(() -> {

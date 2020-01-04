@@ -12,20 +12,41 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/img_pager_tv_show"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:setImage="@{item.posterPath}" />
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_pager_left"
+            app:layout_constraintBottom_toBottomOf="@+id/img_pager_tv_show"
+            app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_pager_right"
+            app:layout_constraintBottom_toBottomOf="@+id/img_pager_tv_show"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_avg_rating"
@@ -34,8 +55,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="24dp"
-            android:text="@{String.valueOf(item.voteAverage)}"
-            android:textColor="#000000"
+            android:drawableLeft="@drawable/ic_stars_white_36dp"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="@{String.valueOf(item.voteAverage) + ` / 10`}"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/img_pager_tv_show"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -47,7 +73,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="16dp"
             android:text="@{item.name}"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/txt_avg_rating"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

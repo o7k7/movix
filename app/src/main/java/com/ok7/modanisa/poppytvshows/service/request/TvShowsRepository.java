@@ -69,7 +69,7 @@ public final class TvShowsRepository extends BaseRepository {
                                 onSuccessPopularShows.accept(popularShowSections);
                             } else if (page == 2 && tvShows.getResults().size() == MAX_ELEMENTS_IN_PAGE) {
                                 final List<PopularShowSections> popularShowSections = new ArrayList<>();
-                                popularShowSections.add(new PopularShowSections(tvShows.getResults().subList(0, HALF_OF_MAX_ELEMENTS_IN_PAGE), PopularTvShowsViewTypes.GRID));
+                                popularShowSections.add(new PopularShowSections(tvShows.getResults().subList(0, HALF_OF_MAX_ELEMENTS_IN_PAGE), PopularTvShowsViewTypes.HORIZONTAL));
                                 popularShowSections.add(new PopularShowSections(tvShows.getResults().subList(HALF_OF_MAX_ELEMENTS_IN_PAGE, tvShows.getResults().size()), PopularTvShowsViewTypes.GRID));
                                 onSuccessPopularShows.accept(popularShowSections);
                             } else {

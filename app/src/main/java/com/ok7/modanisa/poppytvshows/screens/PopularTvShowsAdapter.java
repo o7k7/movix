@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ok7.modanisa.poppytvshows.common.BindingUtils;
@@ -13,7 +14,6 @@ import com.ok7.modanisa.poppytvshows.databinding.RvPopularTvShowGridBinding;
 import com.ok7.modanisa.poppytvshows.model.PopularShowSections;
 import com.ok7.modanisa.poppytvshows.model.PopularTvShowsViewTypes;
 import com.ok7.modanisa.poppytvshows.model.Result;
-import com.ok7.modanisa.poppytvshows.model.TvShows;
 
 import java.util.List;
 
@@ -26,13 +26,15 @@ public final class PopularTvShowsAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == PopularTvShowsViewTypes.PAGER.getValue()) {
-            PagerPopularTvShowBinding itemBinding = PagerPopularTvShowBinding.inflate(LayoutInflater.from(parent.getContext()),
+            final PagerPopularTvShowBinding itemBinding = PagerPopularTvShowBinding.inflate(LayoutInflater.from(parent.getContext()),
                     parent, false);
             return new TvShowPagerVH(itemBinding);
         } else if (viewType == PopularTvShowsViewTypes.HORIZONTAL.getValue()) {
-            return null;
+            final RvPopularTvShowGridBinding itemBinding = RvPopularTvShowGridBinding.inflate(LayoutInflater.from(parent.getContext()),
+                    parent, false);
+            return new TvShowHorizontalVH(itemBinding);
         } else {
-            RvPopularTvShowGridBinding itemBinding = RvPopularTvShowGridBinding.inflate(LayoutInflater.from(parent.getContext()),
+            final RvPopularTvShowGridBinding itemBinding = RvPopularTvShowGridBinding.inflate(LayoutInflater.from(parent.getContext()),
                     parent, false);
             return new TvShowVH(itemBinding);
         }
@@ -40,12 +42,12 @@ public final class PopularTvShowsAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof TvShowVH) {
-            ((TvShowVH) holder).bind(listOfData.get(position).getTvShows());
+        if (holder instanceof TvShowHorizontalVH) {
+            ((TvShowHorizontalVH) holder).bind(listOfData.get(position).getTvShows());
         } else if (holder instanceof TvShowPagerVH) {
             ((TvShowPagerVH) holder).bind(listOfData.get(position).getTvShows());
         } else {
-
+            ((TvShowVH) holder).bind(listOfData.get(position).getTvShows());
         }
     }
 
@@ -71,19 +73,17 @@ public final class PopularTvShowsAdapter extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    public class TvShowVH extends RecyclerView.ViewHolder {
+    static final class TvShowVH extends RecyclerView.ViewHolder {
 
         private RvPopularTvShowGridBinding mBinding;
-
-        private PopularTvShowsGridAdapter mGridAdapter;
 
         TvShowVH(@NonNull RvPopularTvShowGridBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
-            this.mGridAdapter = new PopularTvShowsGridAdapter();
+            PopularTvShowsGridAdapter mGridAdapter = new PopularTvShowsGridAdapter();
             GridLayoutManager gridLayoutManager = new GridLayoutManager(binding.getRoot().getContext(), 2);
             mBinding.rvGridTvShows.setLayoutManager(gridLayoutManager);
-            mBinding.rvGridTvShows.setAdapter(this.mGridAdapter);
+            mBinding.rvGridTvShows.setAdapter(mGridAdapter);
         }
 
         void bind(List<Result> list) {
@@ -92,17 +92,34 @@ public final class PopularTvShowsAdapter extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    public class TvShowPagerVH extends RecyclerView.ViewHolder {
+    static final class TvShowPagerVH extends RecyclerView.ViewHolder {
 
         private PagerPopularTvShowBinding mBinding;
-
-        private TvShowsPagerAdapter mTvShowsPagerAdapter;
 
         TvShowPagerVH(@NonNull PagerPopularTvShowBinding binding) {
             super(binding.getRoot());
             this.mBinding = binding;
-            this.mTvShowsPagerAdapter = new TvShowsPagerAdapter();
-            mBinding.pagerTvShows.setAdapter(this.mTvShowsPagerAdapter);
+            TvShowsPagerAdapter mTvShowsPagerAdapter = new TvShowsPagerAdapter();
+            mBinding.pagerTvShows.setAdapter(mTvShowsPagerAdapter);
+        }
+
+        void bind(List<Result> list) {
+            mBinding.setListOfShows(list);
+            mBinding.executePendingBindings();
+        }
+    }
+
+    static final class TvShowHorizontalVH extends RecyclerView.ViewHolder {
+
+        private RvPopularTvShowGridBinding mBinding;
+
+        TvShowHorizontalVH(@NonNull RvPopularTvShowGridBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+            PopularTvShowsGridAdapter mGridAdapter = new PopularTvShowsGridAdapter();
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(binding.getRoot().getContext(), LinearLayoutManager.HORIZONTAL, false);
+            mBinding.rvGridTvShows.setLayoutManager(linearLayoutManager);
+            mBinding.rvGridTvShows.setAdapter(mGridAdapter);
         }
 
         void bind(List<Result> list) {
