@@ -5,6 +5,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Parcelable.Creator;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -65,4 +67,11 @@ public final class Genre implements Parcelable {
         return 0;
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Genre) {
+            return this.getId().equals(((Genre) obj).getId());
+        }
+        return false;
+    }
 }

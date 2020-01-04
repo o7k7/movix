@@ -1,6 +1,7 @@
 package com.ok7.modanisa.poppytvshows.service;
 
 
+import com.ok7.modanisa.poppytvshows.model.Genres;
 import com.ok7.modanisa.poppytvshows.model.TvShowDetail;
 import com.ok7.modanisa.poppytvshows.model.TvShows;
 
@@ -16,4 +17,7 @@ public interface TvShowsApi {
 
     @GET(ServiceConstants.TV_SHOWS_DETAIL + "{id}")
     Observable<TvShowDetail> getTvShowDetails(@Path("id") final String id);
+
+    @GET(ServiceConstants.GENRE_LIST)
+    Observable<Genres> getTvShowDetails();
 }

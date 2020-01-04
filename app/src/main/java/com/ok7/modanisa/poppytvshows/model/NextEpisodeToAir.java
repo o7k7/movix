@@ -39,42 +39,114 @@ public final class NextEpisodeToAir implements Parcelable {
     private String stillPath;
     @SerializedName("vote_average")
     @Expose
-    private Integer voteAverage;
+    private Double voteAverage;
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
-    public final static Parcelable.Creator<NextEpisodeToAir> CREATOR = new Creator<NextEpisodeToAir>() {
 
 
-        @SuppressWarnings({
-                "unchecked"
-        })
+    public NextEpisodeToAir() {
+    }
+
+    protected NextEpisodeToAir(Parcel in) {
+        airDate = in.readString();
+        if (in.readByte() == 0) {
+            episodeNumber = null;
+        } else {
+            episodeNumber = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        name = in.readString();
+        overview = in.readString();
+        productionCode = in.readString();
+        if (in.readByte() == 0) {
+            seasonNumber = null;
+        } else {
+            seasonNumber = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            showId = null;
+        } else {
+            showId = in.readInt();
+        }
+        stillPath = in.readString();
+        if (in.readByte() == 0) {
+            voteAverage = null;
+        } else {
+            voteAverage = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            voteCount = null;
+        } else {
+            voteCount = in.readInt();
+        }
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(airDate);
+        if (episodeNumber == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(episodeNumber);
+        }
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        dest.writeString(name);
+        dest.writeString(overview);
+        dest.writeString(productionCode);
+        if (seasonNumber == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(seasonNumber);
+        }
+        if (showId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(showId);
+        }
+        dest.writeString(stillPath);
+        if (voteAverage == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(voteAverage);
+        }
+        if (voteCount == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(voteCount);
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<NextEpisodeToAir> CREATOR = new Creator<NextEpisodeToAir>() {
+        @Override
         public NextEpisodeToAir createFromParcel(Parcel in) {
             return new NextEpisodeToAir(in);
         }
 
+        @Override
         public NextEpisodeToAir[] newArray(int size) {
-            return (new NextEpisodeToAir[size]);
+            return new NextEpisodeToAir[size];
         }
-
     };
-
-    protected NextEpisodeToAir(Parcel in) {
-        this.airDate = ((String) in.readValue((String.class.getClassLoader())));
-        this.episodeNumber = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.name = ((String) in.readValue((String.class.getClassLoader())));
-        this.overview = ((String) in.readValue((String.class.getClassLoader())));
-        this.productionCode = ((String) in.readValue((String.class.getClassLoader())));
-        this.seasonNumber = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.showId = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.stillPath = ((String) in.readValue((String.class.getClassLoader())));
-        this.voteAverage = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.voteCount = ((Integer) in.readValue((Integer.class.getClassLoader())));
-    }
-
-    public NextEpisodeToAir() {
-    }
 
     public String getAirDate() {
         return airDate;
@@ -148,14 +220,6 @@ public final class NextEpisodeToAir implements Parcelable {
         this.stillPath = stillPath;
     }
 
-    public Integer getVoteAverage() {
-        return voteAverage;
-    }
-
-    public void setVoteAverage(Integer voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
     public Integer getVoteCount() {
         return voteCount;
     }
@@ -164,22 +228,11 @@ public final class NextEpisodeToAir implements Parcelable {
         this.voteCount = voteCount;
     }
 
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(airDate);
-        dest.writeValue(episodeNumber);
-        dest.writeValue(id);
-        dest.writeValue(name);
-        dest.writeValue(overview);
-        dest.writeValue(productionCode);
-        dest.writeValue(seasonNumber);
-        dest.writeValue(showId);
-        dest.writeValue(stillPath);
-        dest.writeValue(voteAverage);
-        dest.writeValue(voteCount);
+    public Double getVoteAverage() {
+        return voteAverage;
     }
 
-    public int describeContents() {
-        return 0;
+    public void setVoteAverage(Double voteAverage) {
+        this.voteAverage = voteAverage;
     }
-
 }

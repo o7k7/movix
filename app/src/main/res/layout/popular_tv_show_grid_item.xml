@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#ececec"
+        android:background="#ffffff"
         android:onClick="@{() -> listener.onClick(item_grid)}">
 
         <ImageView
@@ -61,6 +61,7 @@
             android:layout_marginBottom="8dp"
             android:clickable="false"
             app:icon_size="25dp"
+            app:is_enabled="false"
             app:icon_type="heart"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"

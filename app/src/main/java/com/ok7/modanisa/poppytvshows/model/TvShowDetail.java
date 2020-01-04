@@ -92,59 +92,142 @@ public final class TvShowDetail implements Parcelable {
     private String type;
     @SerializedName("vote_average")
     @Expose
-    private Integer voteAverage;
+    private Double voteAverage;
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
-    public final static Parcelable.Creator<TvShowDetail> CREATOR = new Creator<TvShowDetail>() {
 
 
-        @SuppressWarnings({
-                "unchecked"
-        })
+    public TvShowDetail() {
+    }
+
+    protected TvShowDetail(Parcel in) {
+        backdropPath = in.readString();
+        createdBy = in.createTypedArrayList(CreatedBy.CREATOR);
+        firstAirDate = in.readString();
+        genres = in.createTypedArrayList(Genre.CREATOR);
+        homepage = in.readString();
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        byte tmpInProduction = in.readByte();
+        inProduction = tmpInProduction == 0 ? null : tmpInProduction == 1;
+        languages = in.createStringArrayList();
+        lastAirDate = in.readString();
+        lastEpisodeToAir = in.readParcelable(LastEpisodeToAir.class.getClassLoader());
+        name = in.readString();
+        nextEpisodeToAir = in.readParcelable(NextEpisodeToAir.class.getClassLoader());
+        networks = in.createTypedArrayList(Network.CREATOR);
+        if (in.readByte() == 0) {
+            numberOfEpisodes = null;
+        } else {
+            numberOfEpisodes = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            numberOfSeasons = null;
+        } else {
+            numberOfSeasons = in.readInt();
+        }
+        originCountry = in.createStringArrayList();
+        originalLanguage = in.readString();
+        originalName = in.readString();
+        overview = in.readString();
+        if (in.readByte() == 0) {
+            popularity = null;
+        } else {
+            popularity = in.readDouble();
+        }
+        posterPath = in.readString();
+        productionCompanies = in.createTypedArrayList(ProductionCompany.CREATOR);
+        seasons = in.createTypedArrayList(Season.CREATOR);
+        status = in.readString();
+        type = in.readString();
+        if (in.readByte() == 0) {
+            voteAverage = null;
+        } else {
+            voteAverage = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            voteCount = null;
+        } else {
+            voteCount = in.readInt();
+        }
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(backdropPath);
+        dest.writeTypedList(createdBy);
+        dest.writeString(firstAirDate);
+        dest.writeTypedList(genres);
+        dest.writeString(homepage);
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        dest.writeByte((byte) (inProduction == null ? 0 : inProduction ? 1 : 2));
+        dest.writeStringList(languages);
+        dest.writeString(lastAirDate);
+        dest.writeParcelable(lastEpisodeToAir, flags);
+        dest.writeString(name);
+        dest.writeParcelable(nextEpisodeToAir, flags);
+        dest.writeTypedList(networks);
+        if (numberOfEpisodes == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(numberOfEpisodes);
+        }
+        if (numberOfSeasons == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(numberOfSeasons);
+        }
+        dest.writeStringList(originCountry);
+        dest.writeString(originalLanguage);
+        dest.writeString(originalName);
+        dest.writeString(overview);
+        if (popularity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(popularity);
+        }
+        dest.writeString(posterPath);
+        dest.writeTypedList(productionCompanies);
+        dest.writeTypedList(seasons);
+        dest.writeString(status);
+        dest.writeString(type);
+        if (voteAverage == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(voteAverage);
+        }
+        if (voteCount == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(voteCount);
+        }
+    }
+
+    public static final Creator<TvShowDetail> CREATOR = new Creator<TvShowDetail>() {
+        @Override
         public TvShowDetail createFromParcel(Parcel in) {
             return new TvShowDetail(in);
         }
 
+        @Override
         public TvShowDetail[] newArray(int size) {
-            return (new TvShowDetail[size]);
+            return new TvShowDetail[size];
         }
-
     };
-
-    protected TvShowDetail(Parcel in) {
-        this.backdropPath = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.createdBy, (com.ok7.modanisa.poppytvshows.model.CreatedBy.class.getClassLoader()));
-        in.readList(this.episodeRunTime, (java.lang.Integer.class.getClassLoader()));
-        this.firstAirDate = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.genres, (com.ok7.modanisa.poppytvshows.model.Genre.class.getClassLoader()));
-        this.homepage = ((String) in.readValue((String.class.getClassLoader())));
-        this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.inProduction = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
-        in.readList(this.languages, (java.lang.String.class.getClassLoader()));
-        this.lastAirDate = ((String) in.readValue((String.class.getClassLoader())));
-        this.lastEpisodeToAir = ((LastEpisodeToAir) in.readValue((LastEpisodeToAir.class.getClassLoader())));
-        this.name = ((String) in.readValue((String.class.getClassLoader())));
-        this.nextEpisodeToAir = ((NextEpisodeToAir) in.readValue((NextEpisodeToAir.class.getClassLoader())));
-        in.readList(this.networks, (com.ok7.modanisa.poppytvshows.model.Network.class.getClassLoader()));
-        this.numberOfEpisodes = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.numberOfSeasons = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        in.readList(this.originCountry, (java.lang.String.class.getClassLoader()));
-        this.originalLanguage = ((String) in.readValue((String.class.getClassLoader())));
-        this.originalName = ((String) in.readValue((String.class.getClassLoader())));
-        this.overview = ((String) in.readValue((String.class.getClassLoader())));
-        this.popularity = ((Double) in.readValue((Double.class.getClassLoader())));
-        this.posterPath = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.productionCompanies, (com.ok7.modanisa.poppytvshows.model.ProductionCompany.class.getClassLoader()));
-        in.readList(this.seasons, (com.ok7.modanisa.poppytvshows.model.Season.class.getClassLoader()));
-        this.status = ((String) in.readValue((String.class.getClassLoader())));
-        this.type = ((String) in.readValue((String.class.getClassLoader())));
-        this.voteAverage = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.voteCount = ((Integer) in.readValue((Integer.class.getClassLoader())));
-    }
-
-    public TvShowDetail() {
-    }
 
     public String getBackdropPath() {
         return backdropPath;
@@ -330,6 +413,14 @@ public final class TvShowDetail implements Parcelable {
         this.productionCompanies = productionCompanies;
     }
 
+    public Double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(Double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
     public List<Season> getSeasons() {
         return seasons;
     }
@@ -354,51 +445,12 @@ public final class TvShowDetail implements Parcelable {
         this.type = type;
     }
 
-    public Integer getVoteAverage() {
-        return voteAverage;
-    }
-
-    public void setVoteAverage(Integer voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
     public Integer getVoteCount() {
         return voteCount;
     }
 
     public void setVoteCount(Integer voteCount) {
         this.voteCount = voteCount;
-    }
-
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(backdropPath);
-        dest.writeList(createdBy);
-        dest.writeList(episodeRunTime);
-        dest.writeValue(firstAirDate);
-        dest.writeList(genres);
-        dest.writeValue(homepage);
-        dest.writeValue(id);
-        dest.writeValue(inProduction);
-        dest.writeList(languages);
-        dest.writeValue(lastAirDate);
-        dest.writeValue(lastEpisodeToAir);
-        dest.writeValue(name);
-        dest.writeValue(nextEpisodeToAir);
-        dest.writeList(networks);
-        dest.writeValue(numberOfEpisodes);
-        dest.writeValue(numberOfSeasons);
-        dest.writeList(originCountry);
-        dest.writeValue(originalLanguage);
-        dest.writeValue(originalName);
-        dest.writeValue(overview);
-        dest.writeValue(popularity);
-        dest.writeValue(posterPath);
-        dest.writeList(productionCompanies);
-        dest.writeList(seasons);
-        dest.writeValue(status);
-        dest.writeValue(type);
-        dest.writeValue(voteAverage);
-        dest.writeValue(voteCount);
     }
 
     public int describeContents() {

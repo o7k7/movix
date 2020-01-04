@@ -3,6 +3,7 @@ package com.ok7.modanisa.poppytvshows.service.request;
 import androidx.annotation.NonNull;
 
 import com.ok7.modanisa.poppytvshows.common.database.DatabaseOperationUseCases;
+import com.ok7.modanisa.poppytvshows.model.Genres;
 import com.ok7.modanisa.poppytvshows.model.PopularShowSections;
 import com.ok7.modanisa.poppytvshows.model.PopularTvShowsViewTypes;
 import com.ok7.modanisa.poppytvshows.model.Result;
@@ -41,6 +42,16 @@ public final class TvShowsRepository extends BaseRepository {
 
     @FunctionalInterface
     public interface OnFailureShowDetail {
+        void accept(String message);
+    }
+
+    @FunctionalInterface
+    public interface OnSuccessGenreList {
+        void accept(Genres tvShows);
+    }
+
+    @FunctionalInterface
+    public interface OnFailureGenreList {
         void accept(String message);
     }
     //</editor-fold>
@@ -95,6 +106,18 @@ public final class TvShowsRepository extends BaseRepository {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(onSuccessShowDetail::accept, throwable -> onFailureShowDetail.accept(handleErrorr(throwable).getStatusMessage()))
+        );
+    }
+
+    public void getGenreList(OnSuccessGenreList onSuccessGenreList, OnFailureGenreList onFailureGenreList) {
+        mCompositeDisposable.add(
+            mTvShowsApi.getTvShowDetails()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(genres -> {
+                        onSuccessGenreList.accept(genres);
+                    }, throwable -> {
+                    })
         );
     }
 

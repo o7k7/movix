@@ -15,8 +15,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.like.LikeButton;
 import com.ok7.modanisa.poppytvshows.BuildConfig;
+import com.ok7.modanisa.poppytvshows.model.Genre;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -83,7 +87,7 @@ public abstract class BindingUtils {
     @BindingAdapter(value = {"setImage"}, requireAll = false)
     public static void setPagerData(final ImageView imageView,
                                     String url) {
-        Picasso.with(imageView.getContext()).load("https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + url).into(imageView);
+        Picasso.with(imageView.getContext()).load("https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + url).noPlaceholder().into(imageView);
     }
 
     @BindingAdapter(value = {"setLiked"}, requireAll = false)
@@ -93,6 +97,27 @@ public abstract class BindingUtils {
             likeButton.setLiked(false);
         } else {
             likeButton.setLiked(isLiked);
+        }
+    }
+
+    @BindingAdapter(value = {"setTitle"}, requireAll = false)
+    public static void setPagerData(final CollapsingToolbarLayout collapsingToolbarLayout,
+                                    String title) {
+        collapsingToolbarLayout.setTitle(title);
+    }
+
+    @BindingAdapter(value = {"setChipData"}, requireAll = false)
+    public static void setPagerData(final ChipGroup chipGroup,
+                                    List<Genre> genres) {
+        if (genres != null) {
+            for (Genre genre : genres) {
+                final Chip chip = new Chip(chipGroup.getContext());
+                chip.setText(genre.getName());
+                chip.setCheckable(true);
+                chipGroup.addView(chip);
+                chip.setChecked(true);
+                chip.setCheckedIconVisible(false);
+            }
         }
     }
 
