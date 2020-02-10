@@ -7,7 +7,7 @@
 
         <variable
             name="tvShowDetailVM"
-            type="com.ok7.modanisa.poppytvshows.screens.tvshowdetail.TvShowDetailViewModel" />
+            type="com.ok7.mvvm.poppytvshows.screens.tvshowdetail.TvShowDetailViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

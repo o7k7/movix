@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screens.PopularTvShowsActivity">
+    tools:context=".screens.popularshows.PopularTvShowsActivity">
 
     <data>
 
@@ -12,15 +12,15 @@
 
         <variable
             name="vmPopularTvShows"
-            type="com.ok7.modanisa.poppytvshows.screens.PopularTvShowsViewModel" />
+            type="com.ok7.mvvm.poppytvshows.screens.popularshows.PopularTvShowsViewModel" />
 
         <variable
             name="onLoadMoreCallback"
-            type="com.ok7.modanisa.poppytvshows.common.BindingUtils.NextPage" />
+            type="com.ok7.mvvm.poppytvshows.common.BindingUtils.NextPage" />
 
         <variable
             name="presenter"
-            type="com.ok7.modanisa.poppytvshows.screens.PopularTvShowsActivity" />
+            type="com.ok7.mvvm.poppytvshows.screens.popularshows.PopularTvShowsActivity" />
     </data>
 
     <RelativeLayout

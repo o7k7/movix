@@ -8,7 +8,7 @@
 
         <variable
             name="listOfShows"
-            type="List&lt;com.ok7.modanisa.poppytvshows.model.Result>" />
+            type="List&lt;com.ok7.mvvm.poppytvshows.model.Result>" />
     </data>
 
     <LinearLayout

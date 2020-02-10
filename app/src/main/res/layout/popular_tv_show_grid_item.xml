@@ -7,11 +7,11 @@
 
         <variable
             name="item_grid"
-            type="com.ok7.modanisa.poppytvshows.model.Result" />
+            type="com.ok7.mvvm.poppytvshows.model.Result" />
 
         <variable
             name="listener"
-            type="com.ok7.modanisa.poppytvshows.screens.PopularTvShowsAdapter.ClickListener" />
+            type="com.ok7.mvvm.poppytvshows.screens.popularshows.PopularTvShowsAdapter.ClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

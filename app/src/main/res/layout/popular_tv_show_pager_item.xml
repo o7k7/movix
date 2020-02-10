@@ -6,11 +6,11 @@
 
         <variable
             name="listener"
-            type="com.ok7.modanisa.poppytvshows.screens.PopularTvShowsAdapter.ClickListener" />
+            type="com.ok7.mvvm.poppytvshows.screens.popularshows.PopularTvShowsAdapter.ClickListener" />
 
         <variable
             name="item"
-            type="com.ok7.modanisa.poppytvshows.model.Result" />
+            type="com.ok7.mvvm.poppytvshows.model.Result" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -9,7 +9,7 @@
 
         <variable
             name="tvShowDetail"
-            type="com.ok7.modanisa.poppytvshows.model.TvShowDetail" />
+            type="com.ok7.mvvm.poppytvshows.model.TvShowDetail" />
 
         <variable
             name="seasonCount"
@@ -21,7 +21,7 @@
 
         <variable
             name="listOfGenres"
-            type="List&lt;com.ok7.modanisa.poppytvshows.model.Genre>" />
+            type="List&lt;com.ok7.mvvm.poppytvshows.model.Genre>" />
     </data>
 
     <androidx.core.widget.NestedScrollView
