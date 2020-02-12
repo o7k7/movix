@@ -1,5 +1,5 @@
 # movix
-Represents Popular TV Shows 
+Represents Popular TV Shows -- Includes MVVM Arch.
 
 ![](movix.gif)
 
